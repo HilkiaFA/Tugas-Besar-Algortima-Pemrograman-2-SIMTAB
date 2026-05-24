@@ -97,7 +97,7 @@ go run main.go
 
 # Cara Menggunakan Program
 
-## ➕ Menambah Tagihan
+## Menambah Tagihan
 
 Pilih menu:
 
