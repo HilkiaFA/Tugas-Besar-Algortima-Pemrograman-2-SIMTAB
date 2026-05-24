@@ -12,7 +12,7 @@ Program ini dibuat menggunakan konsep dasar algoritma seperti:
 
 ---
 
-# ✨ Fitur
+# Fitur
 
 Tambah data tagihan  
  Ubah data tagihan  
@@ -23,7 +23,7 @@ Tambah data tagihan
 
 ---
 
-# 📂 Struktur Data
+# Struktur Data
 
 ```go
 type Tagihan struct {
