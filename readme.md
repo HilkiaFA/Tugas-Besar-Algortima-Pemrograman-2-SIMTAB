@@ -50,6 +50,7 @@ type Tagihan struct {
 
 # 📋 Menu Program
 
+```bash
 ===== SIMTAB =====
 
 1. Tambah Tagihan
@@ -62,6 +63,7 @@ type Tagihan struct {
 8. Insertion Sort
 9. Statistik
 10. Keluar
+```
 
 ---
 
@@ -207,6 +209,7 @@ go run main.go
 
 # 📦 Contoh Output
 
+```bash
 ===== DATA TAGIHAN =====
 
 Data ke- 1
@@ -215,3 +218,4 @@ Kategori : Rumah
 Nominal : 250000
 JatuhTempo : 15
 Status : Belum
+```
