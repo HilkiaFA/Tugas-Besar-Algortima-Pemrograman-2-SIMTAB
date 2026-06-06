@@ -1,29 +1,34 @@
 # SIMTAB - Sistem Manajemen Tagihan Bulanan
 
-SIMTAB adalah aplikasi sederhana berbasis **Golang** untuk mengelola data tagihan bulanan.  
-Program ini dibuat menggunakan konsep dasar algoritma seperti:
+SIMTAB adalah aplikasi sederhana berbasis **Golang** untuk mengelola data tagihan bulanan menggunakan konsep algoritma dan struktur data dasar.
 
-- Array
+Program ini dibuat untuk melatih pemahaman tentang:
+
+- Array statis
 - Struct
-- CRUD
-- Sequential Search
-- Perulangan
-- Percabangan
+- CRUD (Create, Read, Update, Delete)
+- Searching (Sequential & Binary Search)
+- Sorting (Selection & Insertion Sort)
+- Statistik data
+- Perulangan & Percabangan
 
 ---
 
-# Fitur
+# 🚀 Fitur Program
 
-Tambah data tagihan  
- Ubah data tagihan  
- Hapus data tagihan  
- Tampilkan seluruh data  
- Sequential Search berdasarkan nama atau kategori  
- Menggunakan array statis
+- Tambah data tagihan
+- Ubah data tagihan
+- Hapus data tagihan
+- Menampilkan seluruh data
+- Sequential Search (nama / kategori)
+- Binary Search (berdasarkan nama)
+- Selection Sort
+- Insertion Sort
+- Statistik tagihan (total, lunas, belum lunas, persentase)
 
 ---
 
-# Struktur Data
+# 🧱 Struktur Data
 
 ```go
 type Tagihan struct {
@@ -33,24 +38,20 @@ type Tagihan struct {
     JatuhTempo int
     Lunas      bool
 }
+
+| Atribut    | Tipe Data | Keterangan          |
+| ---------- | --------- | ------------------- |
+| Nama       | string    | Nama tagihan        |
+| Kategori   | string    | Jenis tagihan       |
+| Nominal    | int       | Jumlah pembayaran   |
+| JatuhTempo | int       | Tanggal jatuh tempo |
+| Lunas      | bool      | Status pembayaran   |
 ```
 
-| Atribut    | Tipe Data | Keterangan             |
-| ---------- | --------- | ---------------------- |
-| Nama       | string    | Nama tagihan           |
-| Kategori   | string    | Jenis kategori tagihan |
-| Nominal    | int       | Jumlah pembayaran      |
-| JatuhTempo | int       | Tanggal jatuh tempo    |
-| Lunas      | bool      | Status pembayaran      |
+# 📋 Menu Program
 
----
-
-# Menu Program
-
-Saat program dijalankan, akan muncul menu berikut:
-
-```text
 ===== SIMTAB =====
+
 1. Tambah Tagihan
 2. Ubah Tagihan
 3. Hapus Tagihan
@@ -60,12 +61,11 @@ Saat program dijalankan, akan muncul menu berikut:
 7. Selection Sort
 8. Insertion Sort
 9. Statistik
-0. Keluar
-```
+10. Keluar
 
 ---
 
-# Cara Menjalankan Program
+# ⚙️ Cara Menjalankan Program
 
 ## 1. Install Golang
 
@@ -95,113 +95,123 @@ go run main.go
 
 ---
 
-# Cara Menggunakan Program
+# 📌 Cara Penggunaan Program
 
-## Menambah Tagihan
+## ➕ Tambah Tagihan
 
-Pilih menu:
-
-```text
-1
-```
-
-Contoh input:
-
-```text
-Nama Tagihan : Listrik
-Kategori     : Rumah
-Nominal      : 250000
-Jatuh Tempo  : 15
-Lunas? (1=Ya, 0=Tidak): 0
-```
+| Input       | Contoh  |
+| ----------- | ------- |
+| Nama        | Listrik |
+| Kategori    | Rumah   |
+| Nominal     | 250000  |
+| Jatuh Tempo | 15      |
+| Lunas       | 0 / 1   |
 
 ---
 
-## Menampilkan Data
+## 📄 Tampilkan Data
 
-Pilih menu:
-
-```text
-4
-```
-
-Program akan menampilkan seluruh data tagihan yang telah disimpan.
+| Menu | Fungsi                 |
+| ---- | ---------------------- |
+| 4    | Menampilkan semua data |
 
 ---
 
-## Mengubah Data
+## ✏️ Ubah Data
 
-Pilih menu:
-
-```text
-2
-```
-
-Kemudian pilih nomor data yang ingin diubah.
+| Langkah | Keterangan       |
+| ------- | ---------------- |
+| 1       | Pilih menu 2     |
+| 2       | Pilih index data |
+| 3       | Input data baru  |
 
 ---
 
-## Menghapus Data
+## ❌ Hapus Data
 
-Pilih menu:
-
-```text
-3
-```
-
-Kemudian pilih nomor data yang ingin dihapus.
+| Langkah | Keterangan              |
+| ------- | ----------------------- |
+| 1       | Pilih menu 3            |
+| 2       | Pilih data yang dihapus |
 
 ---
 
-## Sequential Search
+## 🔎 Sequential Search
 
-Pilih menu:
-
-```text
-5
-```
-
-Masukkan nama atau kategori yang ingin dicari.
-
-Contoh:
-
-```text
-Masukkan nama/kategori: Rumah
-```
+| Fitur     | Keterangan         |
+| --------- | ------------------ |
+| Menu      | 5                  |
+| Pencarian | Nama atau Kategori |
+| Metode    | Linear Search      |
 
 ---
 
-# Contoh Output
+## ⚡ Binary Search
 
-```text
+| Fitur  | Keterangan                     |
+| ------ | ------------------------------ |
+| Menu   | 6                              |
+| Data   | Harus terurut berdasarkan Nama |
+| Metode | Binary Search                  |
+
+---
+
+## 📊 Sorting Data
+
+| Fitur  | Keterangan                |
+| ------ | ------------------------- |
+| Menu   | 7                         |
+| Field  | Nama / Kategori / Nominal |
+| Urutan | Ascending / Descending    |
+| Metode | Selection Sort            |
+
+---
+
+## Insertion Sort
+
+| Fitur  | Keterangan                |
+| ------ | ------------------------- |
+| Menu   | 8                         |
+| Field  | Nama / Kategori / Nominal |
+| Urutan | Ascending / Descending    |
+| Metode | Insertion Sort            |
+
+---
+
+## 📈 Statistik Tagihan
+
+| Statistik              | Keterangan                       |
+| ---------------------- | -------------------------------- |
+| Total tagihan          | Jumlah seluruh nominal           |
+| Tagihan lunas          | Data & total tagihan lunas       |
+| Tagihan belum lunas    | Data & total tagihan belum lunas |
+| Persentase lunas       | (lunas / total) × 100            |
+| Persentase belum lunas | (belum / total) × 100            |
+
+---
+
+# 🧠 Algoritma yang Digunakan
+
+| Algoritma         | Fungsi                           |
+| ----------------- | -------------------------------- |
+| Sequential Search | Pencarian data secara linear     |
+| Binary Search     | Pencarian data pada data terurut |
+| Selection Sort    | Mengurutkan data (selection)     |
+| Insertion Sort    | Mengurutkan data (insertion)     |
+| Array             | Menyimpan data                   |
+| Struct            | Struktur data tagihan            |
+| Perulangan        | Menampilkan & memproses data     |
+| Percabangan       | Logika menu & kondisi program    |
+
+---
+
+# 📦 Contoh Output
+
 ===== DATA TAGIHAN =====
 
 Data ke- 1
-Nama       : Listrik
-Kategori   : Rumah
-Nominal    : 250000
+Nama : Listrik
+Kategori : Rumah
+Nominal : 250000
 JatuhTempo : 15
-Status     : Belum
-```
-
----
-
-# Fitur yang Belum Diimplementasikan
-
-Berikut beberapa fitur yang masih dapat dikembangkan:
-
-- Binary Search
-- Selection Sort
-- Insertion Sort
-- Statistik Tagihan
-
----
-
-# Algoritma yang Digunakan
-
-| Algoritma         | Fungsi                       |
-| ----------------- | ---------------------------- |
-| Sequential Search | Mencari data                 |
-| Array             | Menyimpan data               |
-| Perulangan        | Menampilkan & memproses data |
-| Percabangan       | Menu program                 |
+Status : Belum

@@ -40,11 +40,15 @@ func main() {
 		} else if pilih == 4 {
 			tampilkanData()
 		} else if pilih == 5 {
-		} else if pilih == 6 {
 			sequentialSearch()
+		} else if pilih == 6 {
+			binarySearch()
 		} else if pilih == 7 {
+			selectionSort()
 		} else if pilih == 8 {
+			insertionSort()
 		} else if pilih == 9 {
+			statistik()
 		} else if pilih == 0 {
 			fmt.Println("Program selesai")
 			return
@@ -78,7 +82,6 @@ func tambahTagihan() {
 	}
 
 	jumlah++
-
 	fmt.Println("Data berhasil ditambahkan")
 }
 
@@ -92,13 +95,12 @@ func tampilkanData() {
 
 	for i := 0; i < jumlah; i++ {
 		status := "Belum"
-
 		if data[i].Lunas {
 			status = "Lunas"
 		}
 
 		fmt.Println("Data ke-", i+1)
-		fmt.Println("Nama       :", data[i].Nama)
+		fmt.Println("Nama Tagiha:", data[i].Nama)
 		fmt.Println("Kategori   :", data[i].Kategori)
 		fmt.Println("Nominal    :", data[i].Nominal)
 		fmt.Println("JatuhTempo :", data[i].JatuhTempo)
@@ -114,7 +116,6 @@ func ubahTagihan() {
 
 	fmt.Print("Pilih data yang diubah: ")
 	fmt.Scan(&index)
-
 	index--
 
 	if index < 0 || index >= jumlah {
@@ -154,7 +155,6 @@ func hapusTagihan() {
 
 	fmt.Print("Pilih data yang dihapus: ")
 	fmt.Scan(&index)
-
 	index--
 
 	if index < 0 || index >= jumlah {
@@ -167,11 +167,15 @@ func hapusTagihan() {
 	}
 
 	jumlah--
-
 	fmt.Println("Data berhasil dihapus")
 }
 
 func sequentialSearch() {
+	if jumlah == 0 {
+		fmt.Println("Data kosong")
+		return
+	}
+
 	var cari string
 	var ketemu bool
 
@@ -180,9 +184,16 @@ func sequentialSearch() {
 
 	for i := 0; i < jumlah; i++ {
 		if data[i].Nama == cari || data[i].Kategori == cari {
-			fmt.Println("Data ditemukan:")
-			fmt.Println(data[i])
-
+			status := "Belum"
+			if data[i].Lunas {
+				status = "Lunas"
+			}
+			fmt.Println("\nData ditemukan:")
+			fmt.Println("Nama       :", data[i].Nama)
+			fmt.Println("Kategori   :", data[i].Kategori)
+			fmt.Println("Nominal    :", data[i].Nominal)
+			fmt.Println("JatuhTempo :", data[i].JatuhTempo)
+			fmt.Println("Status     :", status)
 			ketemu = true
 		}
 	}
@@ -190,4 +201,227 @@ func sequentialSearch() {
 	if !ketemu {
 		fmt.Println("Data tidak ditemukan")
 	}
+}
+
+func binarySearch() {
+	if jumlah == 0 {
+		fmt.Println("Data kosong")
+		return
+	}
+
+	selectionSort()
+	fmt.Println("(Data diurutkan berdasarkan Nama untuk Binary Search)")
+
+	var cari string
+	fmt.Print("Masukkan nama tagihan: ")
+	fmt.Scan(&cari)
+
+	kr := 0
+	kn := jumlah - 1
+	ketemu := false
+
+	for kr <= kn && !ketemu {
+		med := (kr + kn) / 2
+		if data[med].Nama < cari {
+			kr = med + 1
+		} else if data[med].Nama > cari {
+			kn = med - 1
+		} else {
+			ketemu = true
+			status := "Belum"
+			if data[med].Lunas {
+				status = "Lunas"
+			}
+			fmt.Println("\nData ditemukan:")
+			fmt.Println("Nama       :", data[med].Nama)
+			fmt.Println("Kategori   :", data[med].Kategori)
+			fmt.Println("Nominal    :", data[med].Nominal)
+			fmt.Println("JatuhTempo :", data[med].JatuhTempo)
+			fmt.Println("Status     :", status)
+		}
+	}
+
+	if !ketemu {
+		fmt.Println("Data tidak ditemukan")
+	}
+}
+
+func selectionSort() {
+	if jumlah == 0 {
+		fmt.Print("Data kosong")
+		return
+	}
+
+	var pilih int
+	fmt.Println("Urutkan berdasarkan:")
+	fmt.Println("1. Nama")
+	fmt.Println("2. Kategori")
+	fmt.Println("3. Nominal")
+	fmt.Print("Pilih: ")
+	fmt.Scan(&pilih)
+
+	var arahurutan int
+	fmt.Println("Urutan:")
+	fmt.Println("1. Ascending")
+	fmt.Println("2. Descending")
+	fmt.Print("Pilih: ")
+	fmt.Scan(&arahurutan)
+
+	i := 1
+	for i <= jumlah-1 {
+		idxPilih := i - 1
+		j := i
+		for j < jumlah {
+			lebih := false
+
+			if pilih == 1 {
+				if arahurutan == 1 {
+					lebih = data[idxPilih].Nama > data[j].Nama
+				} else {
+					lebih = data[idxPilih].Nama < data[j].Nama
+				}
+			} else if pilih == 2 {
+				if arahurutan == 1 {
+					lebih = data[idxPilih].Kategori > data[j].Kategori
+				} else {
+					lebih = data[idxPilih].Kategori < data[j].Kategori
+				}
+			} else if pilih == 3 {
+				if arahurutan == 1 {
+					lebih = data[idxPilih].Nominal > data[j].Nominal
+				} else {
+					lebih = data[idxPilih].Nominal < data[j].Nominal
+				}
+			}
+
+			if lebih {
+				idxPilih = j
+			}
+			j = j + 1
+		}
+
+		t := data[idxPilih]
+		data[idxPilih] = data[i-1]
+		data[i-1] = t
+		i = i + 1
+	}
+
+	fmt.Println("Data sudah terurut")
+	tampilkanData()
+}
+
+func insertionSort() {
+	if jumlah == 0 {
+		fmt.Print("Data kosong")
+		return
+	}
+
+	var dipilih int
+	fmt.Println("Urutkan berdasarkan:")
+	fmt.Println("1. Nama")
+	fmt.Println("2. Kategori")
+	fmt.Println("3. Nominal")
+	fmt.Print("Pilih: ")
+	fmt.Scan(&dipilih)
+
+	var arah int
+	fmt.Println("Urutan:")
+	fmt.Println("1. Ascending")
+	fmt.Println("2. Descending")
+	fmt.Print("Pilih: ")
+	fmt.Scan(&arah)
+
+	i := 1
+	for i < jumlah {
+		t := data[i]
+		j := i - 1
+		geser := false
+
+		for j >= 0 && !geser {
+			lebih := false
+
+			if dipilih == 1 {
+				if arah == 1 {
+					lebih = data[j].Nama > t.Nama
+				} else {
+					lebih = data[j].Nama < t.Nama
+				}
+			} else if dipilih == 2 {
+				if arah == 1 {
+					lebih = data[j].Kategori > t.Kategori
+				} else {
+					lebih = data[j].Kategori < t.Kategori
+				}
+			} else if dipilih == 3 {
+				if arah == 1 {
+					lebih = data[j].Nominal > t.Nominal
+				} else {
+					lebih = data[j].Nominal < t.Nominal
+				}
+			}
+
+			if lebih {
+				data[j+1] = data[j]
+				j = j - 1
+			} else {
+				geser = true
+			}
+		}
+
+		data[j+1] = t
+		i = i + 1
+	}
+
+	fmt.Println("Data sudah terurut")
+	tampilkanData()
+}
+
+func statistik() {
+	var total int
+	var totalLunas, totalBelumLunas int
+	var jumlahLunas, jumlahBelumLunas int
+
+	if jumlah == 0 {
+		fmt.Println("Data kosong")
+		return
+	}
+
+	for i := 0; i < jumlah; i++ {
+		total += data[i].Nominal
+	}
+
+	fmt.Println("\n===== STATISTIK TAGIHAN =====")
+	fmt.Printf("Total seluruh tagihan : Rp.%d\n\n", total)
+
+	fmt.Println("=== Tagihan Sudah Lunas ===")
+	for i := 0; i < jumlah; i++ {
+		if data[i].Lunas {
+			fmt.Printf("Nama      : %s\n", data[i].Nama)
+			fmt.Printf("Kategori  : %s\n", data[i].Kategori)
+			fmt.Printf("Nominal   : Rp.%d\n\n", data[i].Nominal)
+
+			totalLunas += data[i].Nominal
+			jumlahLunas++
+		}
+	}
+	fmt.Printf("Total tagihan lunas : Rp.%d\n\n", totalLunas)
+
+	fmt.Println("=== Tagihan Belum Lunas ===")
+	for i := 0; i < jumlah; i++ {
+		if !data[i].Lunas {
+			fmt.Printf("Nama      : %s\n", data[i].Nama)
+			fmt.Printf("Kategori  : %s\n", data[i].Kategori)
+			fmt.Printf("Nominal   : Rp.%d\n\n", data[i].Nominal)
+
+			totalBelumLunas += data[i].Nominal
+			jumlahBelumLunas++
+		}
+	}
+	fmt.Printf("Total tagihan belum lunas : Rp.%d\n\n", totalBelumLunas)
+
+	fmt.Printf("Persentase tagihan yang sudah lunas : %.2f%%\n",
+		float64(jumlahLunas)/float64(jumlah)*100)
+
+	fmt.Printf("Persentase tagihan yang belum lunas : %.2f%%\n",
+		float64(jumlahBelumLunas)/float64(jumlah)*100)
 }
