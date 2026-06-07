@@ -370,7 +370,7 @@ func insertionSort() {
 				data[j+1] = data[j]
 				j--
 			} else {
-				break
+				return
 			}
 		}
 
@@ -382,8 +382,9 @@ func insertionSort() {
 }
 
 func statistik() {
-	var total, totalLunas, totalBelum int
-	var jLunas, jBelum int
+	var total int
+	var totalLunas, totalBelumLunas int
+	var jumlahLunas, jumlahBelumLunas int
 
 	if jumlah == 0 {
 		fmt.Println("Data kosong")
@@ -392,21 +393,40 @@ func statistik() {
 
 	for i := 0; i < jumlah; i++ {
 		total += data[i].Nominal
-
-		if data[i].Lunas {
-			totalLunas += data[i].Nominal
-			jLunas++
-		} else {
-			totalBelum += data[i].Nominal
-			jBelum++
-		}
 	}
 
-	fmt.Println("\n===== STATISTIK =====")
-	fmt.Println("Total semua :", total)
-	fmt.Println("Total lunas :", totalLunas)
-	fmt.Println("Total belum :", totalBelum)
+	fmt.Println("\n===== STATISTIK TAGIHAN =====")
+	fmt.Printf("Total seluruh tagihan : Rp.%d\n\n", total)
 
-	fmt.Printf("Persen lunas : %.2f%%\n", float64(jLunas)/float64(jumlah)*100)
-	fmt.Printf("Persen belum : %.2f%%\n", float64(jBelum)/float64(jumlah)*100)
+	fmt.Println("=== Tagihan Sudah Lunas ===")
+	for i := 0; i < jumlah; i++ {
+		if data[i].Lunas {
+			fmt.Printf("Nama      : %s\n", data[i].Nama)
+			fmt.Printf("Kategori  : %s\n", data[i].Kategori)
+			fmt.Printf("Nominal   : Rp.%d\n\n", data[i].Nominal)
+
+			totalLunas += data[i].Nominal
+			jumlahLunas++
+		}
+	}
+	fmt.Printf("Total tagihan lunas : Rp.%d\n\n", totalLunas)
+
+	fmt.Println("=== Tagihan Belum Lunas ===")
+	for i := 0; i < jumlah; i++ {
+		if !data[i].Lunas {
+			fmt.Printf("Nama      : %s\n", data[i].Nama)
+			fmt.Printf("Kategori  : %s\n", data[i].Kategori)
+			fmt.Printf("Nominal   : Rp.%d\n\n", data[i].Nominal)
+
+			totalBelumLunas += data[i].Nominal
+			jumlahBelumLunas++
+		}
+	}
+	fmt.Printf("Total tagihan belum lunas : Rp.%d\n\n", totalBelumLunas)
+
+	fmt.Printf("Persentase tagihan yang sudah lunas : %.2f%%\n",
+		float64(jumlahLunas)/float64(jumlah)*100)
+
+	fmt.Printf("Persentase tagihan yang belum lunas : %.2f%%\n",
+		float64(jumlahBelumLunas)/float64(jumlah)*100)
 }
