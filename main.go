@@ -75,11 +75,7 @@ func tambahTagihan() {
 	fmt.Print("Lunas? (1=Ya, 0=Tidak): ")
 	fmt.Scan(&status)
 
-	if status == 1 {
-		data[jumlah].Lunas = true
-	} else {
-		data[jumlah].Lunas = false
-	}
+	data[jumlah].Lunas = status == 1
 
 	jumlah++
 	fmt.Println("Data berhasil ditambahkan")
@@ -100,7 +96,7 @@ func tampilkanData() {
 		}
 
 		fmt.Println("Data ke-", i+1)
-		fmt.Println("Nama Tagiha:", data[i].Nama)
+		fmt.Println("Nama       :", data[i].Nama)
 		fmt.Println("Kategori   :", data[i].Kategori)
 		fmt.Println("Nominal    :", data[i].Nominal)
 		fmt.Println("JatuhTempo :", data[i].JatuhTempo)
@@ -139,11 +135,7 @@ func ubahTagihan() {
 	fmt.Print("Lunas? (1=Ya,0=Tidak): ")
 	fmt.Scan(&status)
 
-	if status == 1 {
-		data[index].Lunas = true
-	} else {
-		data[index].Lunas = false
-	}
+	data[index].Lunas = status == 1
 
 	fmt.Println("Data berhasil diubah")
 }
@@ -188,6 +180,7 @@ func sequentialSearch() {
 			if data[i].Lunas {
 				status = "Lunas"
 			}
+
 			fmt.Println("\nData ditemukan:")
 			fmt.Println("Nama       :", data[i].Nama)
 			fmt.Println("Kategori   :", data[i].Kategori)
@@ -210,6 +203,7 @@ func binarySearch() {
 	}
 
 	selectionSort()
+
 	fmt.Println("(Data diurutkan berdasarkan Nama untuk Binary Search)")
 
 	var cari string
@@ -222,22 +216,25 @@ func binarySearch() {
 
 	for kr <= kn && !ketemu {
 		med := (kr + kn) / 2
+
 		if data[med].Nama < cari {
 			kr = med + 1
 		} else if data[med].Nama > cari {
 			kn = med - 1
 		} else {
-			ketemu = true
 			status := "Belum"
 			if data[med].Lunas {
 				status = "Lunas"
 			}
+
 			fmt.Println("\nData ditemukan:")
 			fmt.Println("Nama       :", data[med].Nama)
 			fmt.Println("Kategori   :", data[med].Kategori)
 			fmt.Println("Nominal    :", data[med].Nominal)
 			fmt.Println("JatuhTempo :", data[med].JatuhTempo)
 			fmt.Println("Status     :", status)
+
+			ketemu = true
 		}
 	}
 
@@ -248,30 +245,30 @@ func binarySearch() {
 
 func selectionSort() {
 	if jumlah == 0 {
-		fmt.Print("Data kosong")
+		fmt.Println("Data kosong")
 		return
 	}
 
-	var pilih int
+	var pilih, arahurutan int
+
 	fmt.Println("Urutkan berdasarkan:")
 	fmt.Println("1. Nama")
 	fmt.Println("2. Kategori")
 	fmt.Println("3. Nominal")
+	fmt.Println("4. Jatuh Tempo")
 	fmt.Print("Pilih: ")
 	fmt.Scan(&pilih)
 
-	var arahurutan int
 	fmt.Println("Urutan:")
 	fmt.Println("1. Ascending")
 	fmt.Println("2. Descending")
 	fmt.Print("Pilih: ")
 	fmt.Scan(&arahurutan)
 
-	i := 1
-	for i <= jumlah-1 {
+	for i := 1; i <= jumlah-1; i++ {
 		idxPilih := i - 1
-		j := i
-		for j < jumlah {
+
+		for j := i; j < jumlah; j++ {
 			lebih := false
 
 			if pilih == 1 {
@@ -292,18 +289,22 @@ func selectionSort() {
 				} else {
 					lebih = data[idxPilih].Nominal < data[j].Nominal
 				}
+			} else if pilih == 4 {
+				if arahurutan == 1 {
+					lebih = data[idxPilih].JatuhTempo > data[j].JatuhTempo
+				} else {
+					lebih = data[idxPilih].JatuhTempo < data[j].JatuhTempo
+				}
 			}
 
 			if lebih {
 				idxPilih = j
 			}
-			j = j + 1
 		}
 
 		t := data[idxPilih]
 		data[idxPilih] = data[i-1]
 		data[i-1] = t
-		i = i + 1
 	}
 
 	fmt.Println("Data sudah terurut")
@@ -312,32 +313,31 @@ func selectionSort() {
 
 func insertionSort() {
 	if jumlah == 0 {
-		fmt.Print("Data kosong")
+		fmt.Println("Data kosong")
 		return
 	}
 
-	var dipilih int
+	var dipilih, arah int
+
 	fmt.Println("Urutkan berdasarkan:")
 	fmt.Println("1. Nama")
 	fmt.Println("2. Kategori")
 	fmt.Println("3. Nominal")
+	fmt.Println("4. Jatuh Tempo")
 	fmt.Print("Pilih: ")
 	fmt.Scan(&dipilih)
 
-	var arah int
 	fmt.Println("Urutan:")
 	fmt.Println("1. Ascending")
 	fmt.Println("2. Descending")
 	fmt.Print("Pilih: ")
 	fmt.Scan(&arah)
 
-	i := 1
-	for i < jumlah {
+	for i := 1; i < jumlah; i++ {
 		t := data[i]
 		j := i - 1
-		geser := false
 
-		for j >= 0 && !geser {
+		for j >= 0 {
 			lebih := false
 
 			if dipilih == 1 {
@@ -358,18 +358,23 @@ func insertionSort() {
 				} else {
 					lebih = data[j].Nominal < t.Nominal
 				}
+			} else if dipilih == 4 {
+				if arah == 1 {
+					lebih = data[j].JatuhTempo > t.JatuhTempo
+				} else {
+					lebih = data[j].JatuhTempo < t.JatuhTempo
+				}
 			}
 
 			if lebih {
 				data[j+1] = data[j]
-				j = j - 1
+				j--
 			} else {
-				geser = true
+				break
 			}
 		}
 
 		data[j+1] = t
-		i = i + 1
 	}
 
 	fmt.Println("Data sudah terurut")
@@ -377,9 +382,8 @@ func insertionSort() {
 }
 
 func statistik() {
-	var total int
-	var totalLunas, totalBelumLunas int
-	var jumlahLunas, jumlahBelumLunas int
+	var total, totalLunas, totalBelum int
+	var jLunas, jBelum int
 
 	if jumlah == 0 {
 		fmt.Println("Data kosong")
@@ -388,40 +392,21 @@ func statistik() {
 
 	for i := 0; i < jumlah; i++ {
 		total += data[i].Nominal
-	}
 
-	fmt.Println("\n===== STATISTIK TAGIHAN =====")
-	fmt.Printf("Total seluruh tagihan : Rp.%d\n\n", total)
-
-	fmt.Println("=== Tagihan Sudah Lunas ===")
-	for i := 0; i < jumlah; i++ {
 		if data[i].Lunas {
-			fmt.Printf("Nama      : %s\n", data[i].Nama)
-			fmt.Printf("Kategori  : %s\n", data[i].Kategori)
-			fmt.Printf("Nominal   : Rp.%d\n\n", data[i].Nominal)
-
 			totalLunas += data[i].Nominal
-			jumlahLunas++
+			jLunas++
+		} else {
+			totalBelum += data[i].Nominal
+			jBelum++
 		}
 	}
-	fmt.Printf("Total tagihan lunas : Rp.%d\n\n", totalLunas)
 
-	fmt.Println("=== Tagihan Belum Lunas ===")
-	for i := 0; i < jumlah; i++ {
-		if !data[i].Lunas {
-			fmt.Printf("Nama      : %s\n", data[i].Nama)
-			fmt.Printf("Kategori  : %s\n", data[i].Kategori)
-			fmt.Printf("Nominal   : Rp.%d\n\n", data[i].Nominal)
+	fmt.Println("\n===== STATISTIK =====")
+	fmt.Println("Total semua :", total)
+	fmt.Println("Total lunas :", totalLunas)
+	fmt.Println("Total belum :", totalBelum)
 
-			totalBelumLunas += data[i].Nominal
-			jumlahBelumLunas++
-		}
-	}
-	fmt.Printf("Total tagihan belum lunas : Rp.%d\n\n", totalBelumLunas)
-
-	fmt.Printf("Persentase tagihan yang sudah lunas : %.2f%%\n",
-		float64(jumlahLunas)/float64(jumlah)*100)
-
-	fmt.Printf("Persentase tagihan yang belum lunas : %.2f%%\n",
-		float64(jumlahBelumLunas)/float64(jumlah)*100)
+	fmt.Printf("Persen lunas : %.2f%%\n", float64(jLunas)/float64(jumlah)*100)
+	fmt.Printf("Persen belum : %.2f%%\n", float64(jBelum)/float64(jumlah)*100)
 }
